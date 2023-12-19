@@ -10,9 +10,9 @@
                 <th scope="col">Назва</th>
             </thead>
             <tbody class="table-group-divider">
-                <tr v-for = "size in sizes" v-bind:key="size.id">
-                    <td> {{ size.id }}</td>
-                    <td> {{ size.name }}</td> 
+                <tr v-for = "type in types" v-bind:key="type.id">
+                    <td> {{ type.id }}</td>
+                    <td> {{ type.name }}</td> 
                 </tr>
             </tbody>
         </table>
@@ -46,13 +46,13 @@ export default {
   name: 'TypePage',
   data(){
             return {
-                sizes : []
+                types : []
             }
         },
         methods:{
             getAll(){
                 TypesService.getAll().then((response) => {
-                    this.sizes = response.data;
+                    this.types = response.data;
                 })
             }
         },
