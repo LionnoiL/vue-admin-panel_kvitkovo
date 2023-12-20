@@ -1,8 +1,38 @@
+<script setup>
+    import Button from 'primevue/button';
+    import TypesService from '../sevices/TypesService'
+    }
+
+</script>
+
+<script>
+
+export default {
+  name: 'TypePage',
+  data(){
+            return {
+                types : []
+            }
+        },
+        methods:{
+            getAll(){
+                TypesService.getAll().then((response) => {
+                    this.types = response.data;
+                })
+            }
+        },
+        created(){
+            this.getAll()
+        }
+        
+}
+</script>
+
 <template>
     <div class="col-lg-9">
         <h3 class="text-start">Типи квітів</h3>
         <div class="btn-group mb-3" role="group" aria-label="Панель керування">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Створити</button>
+            <Button label="Створити" @click="openModal"/>
         </div>
         <table class="table table-striped table-hover">
             <thead>
@@ -38,27 +68,3 @@
 </div>
 
 </template>
-
-<script>
-import TypesService from '../sevices/TypesService'
-
-export default {
-  name: 'TypePage',
-  data(){
-            return {
-                types : []
-            }
-        },
-        methods:{
-            getAll(){
-                TypesService.getAll().then((response) => {
-                    this.types = response.data;
-                })
-            }
-        },
-        created(){
-            this.getAll()
-        }
-        
-}
-</script>
