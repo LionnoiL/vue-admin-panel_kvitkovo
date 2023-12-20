@@ -2,7 +2,7 @@
     <div class="col-lg-9">
         <h3 class="text-start">Типи квітів</h3>
         <div class="btn-group mb-3" role="group" aria-label="Панель керування">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Створити</button>
+            <button @click="openModal">Открыть модальное окно</button>
         </div>
         <table class="table table-striped table-hover">
             <thead>
@@ -18,7 +18,7 @@
         </table>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" :class="{ 'show': showModal }">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -26,12 +26,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span>Назва:</span>
-                    <input v-model="name" placeholder="назва типу">
+                    <div class="mb-3">
+                        <label for="nameInput" class="form-label">Назва</label>
+                        <input v-model="newTypename" placeholder="введіть назву типу" id="nameInput" class="form-control">
+                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
-                    <button type="button" class="btn btn-primary">Зберегти</button>
+                    <button type="button" class="btn btn-primary" @click="addNew">Зберегти</button>
                 </div>
             </div>
         </div>
@@ -39,14 +42,22 @@
 
 </template>
 
-<script>
+<script setup>
 import TypesService from '../sevices/TypesService'
+
+
+</script>
+
+<script>
+
 
 export default {
   name: 'TypePage',
   data(){
             return {
-                types : []
+                types : [],
+                showModal: false,
+                newTypename: ""
             }
         },
         methods:{
@@ -54,7 +65,22 @@ export default {
                 TypesService.getAll().then((response) => {
                     this.types = response.data;
                 })
-            }
+            },
+            openModal(){
+                this.showModal = true;
+            },
+            addNew (){
+                this.showModal = false;
+                const newType = {
+                    name: this.newTypename
+                }
+
+                TypesService.add(newType).then((response) => {
+                    console.log(response.data);
+                    this.newTypename = "";
+                })
+    
+}
         },
         created(){
             this.getAll()
