@@ -9,7 +9,7 @@ class TypesService{
 
     add(data){
         let header= {
-            headers: {'Authorization': "Bearer " + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcwMzA5ODY2NCwiZXhwIjoxNzAzMTAyMjY0fQ.W6qppRYmGsaJH55kvwqYMWQ9PnmCJ8waaii1t3D1EHs'}
+            headers: {'Authorization': "Bearer " + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcwMzE0MDc2NCwiZXhwIjoxNzAzMTQ0MzY0fQ.9dgtbbbTpaogdHjmenm0VmCjREuLLFzLf_kPn11Pjuc'}
         };
         return axios.post(TYPES_API_BASE_URL, data, header);
     }
